@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encori Trading and Projects | 🇿🇦 Civil & Building Construction</title>
+    <meta name="description" content="100% Black female-owned Gauteng construction firm. Specializing in CIDB-rated civil engineering, building construction, and professional house plan drafting.">
+    
+    <!-- Professional Website Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2225%22 fill=%22%231e3a8a%22/><text y=%221.15em%22 x=%2250%%22 font-family=%22Poppins, sans-serif%22 font-weight=%22900%22 font-size=%2255%22 text-anchor=%22middle%22 fill=%22white%22>ET</text></svg>">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            500: '#00a1ff', 
+                            900: '#1e3a8a', 
+                        },
+                        night: {
+                            DEFAULT: '#020617', 
+                            card: '#0a0f1d',
+                            border: '#1e293b',
+                            accent: '#ffffff'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Light Mode Styles */
+        body:not(.dark) { 
+            background-color: #ffffff; 
+            color: #1e3a8a; 
+        }
+
+        /* STRICT Dark Mode - Pure monochromatic night */
+        .dark body { 
+            background-color: #020617; 
+            color: #f8fafc; 
+        }
+
+        /* Animations */
+        @keyframes text-glow {
+            0%, 100% { filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.1)); }
+            50% { filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3)); }
+        }
+        .dark .animate-text-glow { animation: text-glow 4s ease-in-out infinite; }
+        body:not(.dark) .animate-text-glow { filter: drop-shadow(0 0 2px rgba(0, 161, 255, 0.3)); }
+
+        @keyframes pulse-night {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.2); }
+            70% { transform: scale(1.03); box-shadow: 0 0 0 12px rgba(255, 255, 255, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+        /* Dark Mode Button remains strictly white/dark */
+        .dark .whatsapp-pulse { animation: pulse-night 2s infinite; background-color: #ffffff; color: #020617; }
+        
+        /* Light Mode uses the original brand colors */
+        @keyframes pulse-sky {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        body:not(.dark) .whatsapp-pulse { animation: pulse-sky 2s infinite; background-color: #25D366; color: white; }
+
+        .dark .text-shimmer {
+            background: linear-gradient(to right, #334155 20%, #ffffff 40%, #ffffff 60%, #334155 80%);
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShimmer 4s linear infinite;
+        }
+        body:not(.dark) .text-shimmer {
+            background: linear-gradient(to right, #00a1ff 20%, #1e3a8a 40%, #1e3a8a 60%, #00a1ff 80%);
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShimmer 4s linear infinite;
+        }
+        @keyframes textShimmer { to { background-position: 200% center; } }
+
+        .glass-card {
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+        body:not(.dark) .glass-card {
+            background: rgba(30, 58, 138, 0.03);
+            border: 1px solid rgba(30, 58, 138, 0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+        }
+        .dark .glass-card {
+            background: rgba(10, 15, 29, 0.98); 
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.7s cubic-bezier(0.17, 0.55, 0.55, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .video-bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .video-bg-container video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            transition: background 0.4s ease;
+        }
+        body:not(.dark) .video-overlay {
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.98));
+        }
+        .dark .video-overlay {
+            background: linear-gradient(to bottom, rgba(2, 6, 23, 1), rgba(2, 6, 23, 0.98), rgba(2, 6, 23, 1));
+        }
+
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .dark #preloader { background: #020617; }
+        #preloader.loaded { opacity: 0; visibility: hidden; pointer-events: none; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f8fafc; }
+        .dark ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .dark ::-webkit-scrollbar-thumb { background: #1e293b; }
+
+        .portfolio-img {
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .portfolio-img:hover {
+            transform: scale(1.04);
+        }
+
+        @media (max-width: 640px) {
+            .mobile-padding { padding-left: 1.5rem; padding-right: 1.5rem; }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden" id="home">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="relative w-20 h-20 flex flex-col items-center justify-center">
+            <div class="absolute inset-0 border-4 border-brand-900/5 dark:border-white/5 rounded-full"></div>
+            <div class="absolute inset-0 border-4 border-t-brand-500 dark:border-t-white rounded-full animate-spin"></div>
+            <span class="mt-28 text-[9px] text-brand-900 dark:text-white uppercase tracking-[0.4em] font-black text-center">ENCORI</span>
+        </div>
+    </div>
+
+    <!-- Background Layer -->
+    <div class="video-bg-container">
+        <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1541888946425-d81bb19480c5?auto=format&fit=crop&q=80&w=2070">
+            <source src="background.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 py-2 sm:py-4 transition-all duration-700 top-2 sm:top-4">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6">
+            <div class="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 rounded-2xl sm:rounded-3xl shadow-2xl border border-brand-900/10 dark:border-white/5 backdrop-blur-xl bg-white/95 dark:bg-night/95">
+                <div class="flex items-center space-x-2 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <img src="logo.png" alt="Encori" class="w-10 h-10 sm:w-16 sm:h-16 object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="hidden w-10 h-10 bg-brand-900 rounded-lg items-center justify-center text-white font-black text-xs">ET</div>
+                    <div class="flex flex-col">
+                        <span class="font-black text-sm sm:text-xl tracking-tighter uppercase leading-none text-brand-900 dark:text-white">ENCORI <span class="text-brand-500 dark:text-white">TRADING</span></span>
+                        <span class="text-[7px] sm:text-[9px] font-bold tracking-[0.3em] uppercase opacity-70 text-brand-900 dark:text-white">Construction & Projects</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="#home" class="text-[11px] font-black uppercase tracking-widest hover:text-brand-500 dark:hover:text-white transition-colors text-brand-900 dark:text-white">Home</a>
+                    <a href="#about" class="text-[11px] font-black uppercase tracking-widest hover:text-brand-500 dark:hover:text-white transition-colors text-brand-900 dark:text-white">About</a>
+                    <a href="#services" class="text-[11px] font-black uppercase tracking-widest hover:text-brand-500 dark:hover:text-white transition-colors text-brand-900 dark:text-white">Services</a>
+                    <a href="#portfolio" class="text-[11px] font-black uppercase tracking-widest hover:text-brand-500 dark:hover:text-white transition-colors text-brand-900 dark:text-white">Portfolio</a>
+                    <button id="theme-toggle" class="p-3 rounded-2xl glass-card border-none hover:bg-brand-500/20 dark:hover:bg-white/10 transition-all flex items-center justify-center min-w-[50px]">
+                        <i data-lucide="sun" id="sun-icon" class="hidden dark:block text-white w-5 h-5"></i>
+                        <i data-lucide="moon" id="moon-icon" class="block dark:hidden text-brand-900 w-5 h-5"></i>
+                    </button>
+                    <a href="tel:0723179464" class="px-7 py-4 bg-brand-900 dark:bg-white dark:text-night text-white rounded-2xl font-bold hover:brightness-110 transition-all shadow-lg uppercase text-[11px] tracking-widest">Consult Now</a>
+                </div>
+
+                <!-- Mobile Toggle -->
+                <div class="lg:hidden flex items-center space-x-2 sm:space-x-4">
+                    <button id="theme-toggle-mobile" class="p-2 rounded-xl glass-card border-none">
+                        <i data-lucide="sun" class="hidden dark:block text-white w-5 h-5"></i>
+                        <i data-lucide="moon" class="block dark:hidden text-brand-900 w-5 h-5"></i>
+                    </button>
+                    <button id="menu-toggle" class="text-brand-900 dark:text-white p-2">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden absolute top-20 left-3 right-3 bg-white dark:bg-night border border-brand-900/10 dark:border-white/5 rounded-2xl p-6 shadow-2xl lg:hidden text-center">
+            <div class="flex flex-col space-y-6">
+                <a href="#home" class="mobile-link text-sm font-black uppercase tracking-widest text-brand-900 dark:text-white">Home</a>
+                <a href="#about" class="mobile-link text-sm font-black uppercase tracking-widest text-brand-900 dark:text-white">About</a>
+                <a href="#services" class="mobile-link text-sm font-black uppercase tracking-widest text-brand-900 dark:text-white">Services</a>
+                <a href="#portfolio" class="mobile-link text-sm font-black uppercase tracking-widest text-brand-900 dark:text-white">Portfolio</a>
+                <a href="tel:0723179464" class="bg-brand-900 dark:bg-white dark:text-night text-white py-4 rounded-xl font-black uppercase text-xs tracking-widest">Call Encori</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center pt-20 pb-10 overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6 sm:space-y-8 text-center lg:text-left reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-brand-500/10 dark:bg-white/5 border border-brand-500/20 dark:border-white/10 rounded-full">
+                    <span class="w-2 h-2 bg-brand-500 dark:bg-white rounded-full animate-pulse"></span>
+                    <span class="text-brand-500 dark:text-white text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em]">🇿🇦 100% Black Female-Owned | CIDB</span>
+                </div>
+                <h1 class="text-4xl sm:text-6xl lg:text-8xl font-black leading-[1] tracking-tighter uppercase">
+                    Engineering the <br />
+                    <span class="text-shimmer animate-text-glow">South African</span> <br />
+                    Standard.
+                </h1>
+                <p class="text-sm sm:text-lg lg:text-xl max-w-xl mx-auto lg:mx-0 font-medium leading-relaxed opacity-80 px-4 sm:px-0">
+                    Encori Trading and Projects delivers high-precision civil engineering and building solutions. From initial drafting and municipal submissions to technical execution and handover, we are Gauteng's choice for structural integrity.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4 px-6 sm:px-0">
+                    <a href="#contact" class="px-8 sm:px-12 py-5 sm:py-6 bg-brand-900 dark:bg-white dark:text-night text-white font-black rounded-2xl sm:rounded-3xl shadow-2xl hover:scale-105 transition-all flex items-center justify-center uppercase tracking-widest text-[10px] sm:text-xs">
+                        Request Quote <i data-lucide="send" class="ml-3 w-4 h-4 sm:w-5 sm:h-5"></i>
+                    </a>
+                    <a href="#portfolio" class="px-8 sm:px-12 py-5 sm:py-6 glass-card font-black rounded-2xl sm:rounded-3xl border border-brand-900/10 dark:border-white/5 transition-all uppercase tracking-widest text-[10px] sm:text-xs flex items-center justify-center hover:bg-brand-500/10 dark:hover:bg-white/5">
+                        View Projects
+                    </a>
+                </div>
+            </div>
+            <div class="hidden lg:block relative reveal" style="transition-delay: 200ms;">
+                <div class="relative z-10 rounded-[4rem] overflow-hidden shadow-2xl border border-brand-900/10 dark:border-white/5 transform rotate-2 hover:rotate-0 transition-all duration-1000 aspect-square group bg-white/40 dark:bg-night/95 backdrop-blur-sm">
+                    <img src="https://images.unsplash.com/photo-1541888946425-d81bb19480c5?auto=format&fit=crop&q=80&w=2070" alt="Construction" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[4000ms] opacity-90 dark:opacity-20" />
+                </div>
+                <div class="absolute -top-10 -right-10 w-80 h-80 bg-brand-500/10 dark:bg-white/5 blur-[100px] rounded-full"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expanded Corporate Overview -->
+    <section id="about" class="py-16 sm:py-32 relative overflow-hidden dark:bg-night">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid lg:grid-cols-2 gap-10 sm:gap-16 items-center">
+                <div class="reveal space-y-6 sm:space-y-8">
+                    <div class="space-y-3 sm:space-y-4">
+                        <h2 class="text-brand-500 dark:text-white font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] text-[10px] sm:text-[11px]">Corporate Profile</h2>
+                        <h3 class="text-3xl sm:text-5xl font-black uppercase tracking-tighter leading-none text-center sm:text-left">Leading Through <br /> Technical Excellence.</h3>
+                        <div class="w-16 sm:w-24 h-1.5 sm:h-2 bg-brand-500 dark:bg-white rounded-full opacity-50 mx-auto sm:mx-0"></div>
+                    </div>
+                    <div class="space-y-4 sm:space-y-6 opacity-80 font-medium leading-relaxed text-sm sm:text-base">
+                        <p>Established in 2020 and based in Akasia, Pretoria, <strong>Encori Trading and Projects</strong> is a premier 100% Black female-owned construction firm. We bridge the gap between architectural concept and structural reality by managing the entire project lifecycle with clinical precision.</p>
+                        
+                        <p>Our firm specializes in a <strong>Turnkey Integrated Model</strong>. This means we handle your project from the very first line of drafting, through rigorous municipal approval processes, to bulk earthworks, reticulation, and the final site handover. By consolidating these services, we offer our clients a single point of accountability, reduced overhead costs, and a significantly accelerated project timeline.</p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
+                            <div class="space-y-2">
+                                <h4 class="text-brand-500 dark:text-white font-black uppercase text-[10px] tracking-widest">Our Mission</h4>
+                                <p class="text-[12px] opacity-70 italic">"To deliver superior structural solutions that empower communities and set new safety benchmarks in the South African construction sector."</p>
+                            </div>
+                            <div class="space-y-2">
+                                <h4 class="text-brand-500 dark:text-white font-black uppercase text-[10px] tracking-widest">Our Vision</h4>
+                                <p class="text-[12px] opacity-70 italic">"To be recognized as the continent's leading female-led engineering partner for large-scale urban development and civil infrastructure."</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4 pt-6">
+                            <h4 class="text-[10px] sm:text-xs font-black uppercase tracking-widest text-brand-500 dark:text-white text-center sm:text-left">The Leadership Core</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                                <div class="glass-card p-4 sm:p-5 rounded-xl sm:rounded-2xl border-l-2 border-brand-500 dark:border-white">
+                                    <h5 class="font-bold text-[10px] sm:text-xs uppercase">Ndou Asiashu</h5>
+                                    <p class="text-[9px] sm:text-[11px] opacity-70">Structural Engineer with 14+ years in municipal compliance and site handover.</p>
+                                </div>
+                                <div class="glass-card p-4 sm:p-5 rounded-xl sm:rounded-2xl border-l-2 border-brand-500 dark:border-white">
+                                    <h5 class="font-bold text-[10px] sm:text-xs uppercase">T. Netshikweta</h5>
+                                    <p class="text-[9px] sm:text-[11px] opacity-70">Technical Specialist focused on contract administration and civil infrastructure safety.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative reveal mt-8 lg:mt-0" style="transition-delay: 300ms;">
+                    <div class="relative z-10 rounded-2xl sm:rounded-[3.5rem] overflow-hidden shadow-2xl border border-brand-900/10 dark:border-white/5 aspect-square group">
+                        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=800" alt="Active Construction" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" />
+                    </div>
+                    <div class="absolute -bottom-4 -left-4 sm:-bottom-8 sm:-left-8 glass-card p-6 sm:p-10 rounded-xl sm:rounded-3xl z-20 shadow-2xl">
+                        <div class="flex items-center gap-4 sm:gap-6">
+                            <div class="w-12 h-12 sm:w-16 sm:h-16 bg-brand-500 dark:bg-white rounded-full flex items-center justify-center text-white dark:text-night">
+                                <i data-lucide="shield-check" class="w-6 h-6 sm:w-8 sm:h-8"></i>
+                            </div>
+                            <div>
+                                <p class="text-[8px] sm:text-[10px] font-black uppercase text-brand-500 dark:text-white tracking-widest">Compliance</p>
+                                <p class="text-sm sm:text-lg font-bold">CIDB Level 1 Rated</p>
+                                <p class="text-[8px] sm:text-[9px] opacity-60">Professional Indemnity & NHBRC Ready</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Service Portfolio -->
+    <section id="services" class="py-16 sm:py-32 relative overflow-hidden bg-brand-900/5 dark:bg-night border-y border-brand-900/5 dark:border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center space-y-4 mb-12 sm:mb-24 reveal">
+                <h2 class="text-brand-500 dark:text-white font-black tracking-[0.3em] uppercase text-[10px] sm:text-[11px]">Service Matrix</h2>
+                <h3 class="text-3xl sm:text-5xl font-black tracking-tighter uppercase leading-none">Specialized Competencies</h3>
+                <p class="max-w-2xl mx-auto text-xs sm:text-sm opacity-60 font-medium">From professional drafting to heavy-duty infrastructure, we deliver quality at every stage.</p>
+                <div class="w-16 sm:w-24 h-1.5 sm:h-2 bg-brand-500 dark:bg-white mx-auto rounded-full mt-4 opacity-50"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <!-- Building -->
+                <div class="glass-card p-8 sm:p-10 rounded-2xl sm:rounded-[3rem] flex flex-col border-l-4 border-l-brand-500 dark:border-l-white reveal">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-brand-500 dark:bg-white rounded-xl sm:rounded-2xl flex items-center justify-center mb-6 sm:mb-8 text-white dark:text-night shadow-lg"><i data-lucide="home" class="w-6 h-6 sm:w-8 sm:h-8"></i></div>
+                    <h4 class="text-xl sm:text-2xl font-black mb-3 sm:mb-4 uppercase tracking-tighter">Building Solutions</h4>
+                    <p class="text-xs sm:text-sm font-medium opacity-70 leading-relaxed mb-4">We execute high-end residential and commercial builds with structural precision. Our division manages foundations, reinforced slabs, roofing, and professional interior finishes for developers and private owners.</p>
+                    <div class="mt-auto pt-4 border-t border-brand-500/10 dark:border-white/10">
+                        <p class="text-[9px] sm:text-[10px] font-black uppercase text-brand-500 dark:text-white tracking-widest">Focus: Structural Handover</p>
+                    </div>
+                </div>
+                <!-- Civil -->
+                <div class="glass-card p-8 sm:p-10 rounded-2xl sm:rounded-[3rem] flex flex-col border-l-4 border-l-brand-500 dark:border-l-white reveal" style="transition-delay: 100ms;">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-brand-500 dark:bg-white rounded-xl sm:rounded-2xl flex items-center justify-center mb-6 sm:mb-8 text-white dark:text-night shadow-lg"><i data-lucide="building-2" class="w-6 h-6 sm:w-8 sm:h-8"></i></div>
+                    <h4 class="text-xl sm:text-2xl font-black mb-3 sm:mb-4 uppercase tracking-tighter">Civil Engineering</h4>
+                    <p class="text-xs sm:text-sm font-medium opacity-70 leading-relaxed mb-4">Encori provides bulk earthworks, site clearance, and road base construction. Our expertise in road layerworks, kerbing, and bitumen surfacing makes us a trusted partner for municipal infrastructure.</p>
+                    <div class="mt-auto pt-4 border-t border-brand-500/10 dark:border-white/10">
+                        <p class="text-[9px] sm:text-[10px] font-black uppercase text-brand-500 dark:text-white tracking-widest">Focus: Bulk Infrastructure</p>
+                    </div>
+                </div>
+                <!-- Water -->
+                <div class="glass-card p-8 sm:p-10 rounded-2xl sm:rounded-[3rem] flex flex-col border-l-4 border-l-brand-500 dark:border-l-white reveal" style="transition-delay: 200ms;">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-brand-500 dark:bg-white rounded-xl sm:rounded-2xl flex items-center justify-center mb-6 sm:mb-8 text-white dark:text-night shadow-lg"><i data-lucide="droplets" class="w-6 h-6 sm:w-8 sm:h-8"></i></div>
+                    <h4 class="text-xl sm:text-2xl font-black mb-3 sm:mb-4 uppercase tracking-tighter">Water & Sewer</h4>
+                    <p class="text-xs sm:text-sm font-medium opacity-70 leading-relaxed mb-4">Installation and expert maintenance of reticulation networks. We specialize in high-precision pipeline trenching, manhole construction, and industrial sewer system upgrades for urban zones.</p>
+                    <div class="mt-auto pt-4 border-t border-brand-500/10 dark:border-white/10">
+                        <p class="text-[9px] sm:text-[10px] font-black uppercase text-brand-500 dark:text-white tracking-widest">Focus: Precision Reticulation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Civil Engineering Project Showcase -->
+    <section id="portfolio" class="py-16 sm:py-32 relative reveal dark:bg-night">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center space-y-4 mb-12 sm:mb-24">
+                <h2 class="text-brand-500 dark:text-white font-black tracking-[0.3em] uppercase text-[10px] sm:text-[11px]">Work Gallery</h2>
+                <h3 class="text-3xl sm:text-5xl font-black tracking-tighter uppercase leading-none text-center">Projects In Action</h3>
+                <p class="max-w-2xl mx-auto text-xs sm:text-sm opacity-60 font-medium">A visual archive of our specialized civil engineering and infrastructure deployments.</p>
+                <div class="w-16 sm:w-24 h-1.5 sm:h-2 bg-brand-500 dark:bg-white mx-auto rounded-full mt-4 opacity-50"></div>
+            </div>
+
+            <!-- Civil Excellence Gallery -->
+            <div class="mb-16 sm:mb-24">
+                <h4 class="text-[10px] sm:text-xs font-black uppercase tracking-widest text-brand-500 dark:text-white mb-6 sm:mb-8 flex items-center justify-center sm:justify-start">
+                    <i data-lucide="hard-hat" class="mr-2 sm:mr-3 w-4 h-4 sm:w-5 sm:h-5"></i> Site Ops & Civil Works
+                </h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                    <div class="aspect-[4/3] rounded-2xl sm:rounded-[2.5rem] overflow-hidden glass-card group relative">
+                        <img src="C1 (1).jpeg" class="w-full h-full object-cover portfolio-img" alt="Civil 1" onerror="this.src='https://via.placeholder.com/600x450/111827/ffffff?text=Preliminary+Works'">
+                        <div class="absolute bottom-4 left-4 right-4 p-3 glass-card rounded-xl opacity-0 sm:group-hover:opacity-100 transition-opacity">
+                            <p class="text-[9px] font-black uppercase tracking-widest text-center">Preliminary Site Clearing</p>
+                        </div>
+                    </div>
+                    <div class="aspect-[4/3] rounded-2xl sm:rounded-[2.5rem] overflow-hidden glass-card group relative">
+                        <img src="C1 (2).jpeg" class="w-full h-full object-cover portfolio-img" alt="Civil 2" onerror="this.src='https://via.placeholder.com/600x450/111827/ffffff?text=Bulk+Earthworks'">
+                    </div>
+                    <div class="aspect-[4/3] rounded-2xl sm:rounded-[2.5rem] overflow-hidden glass-card group relative">
+                        <img src="C1 (3).jpeg" class="w-full h-full object-cover portfolio-img" alt="Civil 3" onerror="this.src='https://via.placeholder.com/600x450/111827/ffffff?text=Infrastructure+Dev'">
+                    </div>
+                    <div class="aspect-[4/3] rounded-2xl sm:rounded-[2.5rem] overflow-hidden glass-card group relative">
+                        <img src="C1 (4).jpeg" class="w-full h-full object-cover portfolio-img" alt="Civil 4" onerror="this.src='https://via.placeholder.com/600x450/111827/ffffff?text=Site+Handover'">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Existing Grid -->
+            <div class="mb-16 sm:mb-24">
+                <h4 class="text-[10px] sm:text-xs font-black uppercase tracking-widest text-brand-500 dark:text-white mb-6 sm:mb-8 flex items-center justify-center sm:justify-start">
+                    <i data-lucide="layout" class="mr-2 sm:mr-3 w-4 h-4 sm:w-5 sm:h-5"></i> General Construction Archives
+                </h4>
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-6">
+                    <div class="aspect-square rounded-xl sm:rounded-3xl overflow-hidden glass-card"><img src="p1.jpeg" class="w-full h-full object-cover portfolio-img" onerror="this.src='https://via.placeholder.com/300'"></div>
+                    <div class="aspect-square rounded-xl sm:rounded-3xl overflow-hidden glass-card"><img src="p2.jpeg" class="w-full h-full object-cover portfolio-img" onerror="this.src='https://via.placeholder.com/300'"></div>
+                    <div class="aspect-square rounded-xl sm:rounded-3xl overflow-hidden glass-card"><img src="p3.jpeg" class="w-full h-full object-cover portfolio-img" onerror="this.src='https://via.placeholder.com/300'"></div>
+                    <div class="aspect-square rounded-xl sm:rounded-3xl overflow-hidden glass-card"><img src="p4.jpeg" class="w-full h-full object-cover portfolio-img" onerror="this.src='https://via.placeholder.com/300'"></div>
+                    <div class="aspect-square rounded-xl sm:rounded-3xl overflow-hidden glass-card"><img src="p5.jpeg" class="w-full h-full object-cover portfolio-img" onerror="this.src='https://via.placeholder.com/300'"></div>
+                    <div class="aspect-square rounded-xl sm:rounded-3xl overflow-hidden glass-card"><img src="p6.jpeg" class="w-full h-full object-cover portfolio-img" onerror="this.src='https://via.placeholder.com/300'"></div>
+                    <div class="aspect-square rounded-xl sm:rounded-3xl overflow-hidden glass-card"><img src="p7.jpeg" class="w-full h-full object-cover portfolio-img" onerror="this.src='https://via.placeholder.com/300'"></div>
+                    <div class="aspect-square rounded-xl sm:rounded-3xl overflow-hidden glass-card"><img src="p8.jpeg" class="w-full h-full object-cover portfolio-img" onerror="this.src='https://via.placeholder.com/300'"></div>
+                    <div class="aspect-square rounded-xl sm:rounded-3xl overflow-hidden glass-card"><img src="p9.jpeg" class="w-full h-full object-cover portfolio-img" onerror="this.src='https://via.placeholder.com/300'"></div>
+                    <div class="aspect-square rounded-xl sm:rounded-3xl overflow-hidden glass-card"><img src="p10.jpeg" class="w-full h-full object-cover portfolio-img" onerror="this.src='https://via.placeholder.com/300'"></div>
+                </div>
+            </div>
+
+            <!-- Track Record -->
+            <div class="mb-10 sm:mb-20">
+                <h4 class="text-[10px] sm:text-xs font-black uppercase tracking-widest text-brand-500 dark:text-white mb-6 flex items-center justify-center sm:justify-start">
+                    <i data-lucide="award" class="mr-2 w-4 h-4"></i> Performance Registry
+                </h4>
+                <div class="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+                    <table class="project-table min-w-[600px] sm:min-w-full">
+                        <thead><tr class="border-b border-brand-500/20 dark:border-white/20 text-[9px] sm:text-[10px] text-brand-900/70 dark:text-white/70"><th>Project Milestone</th><th>Collaborating Partner</th></tr></thead>
+                        <tbody class="text-[10px] sm:text-xs font-medium">
+                            <tr class="project-row glass-card"><td>Construction of Double Storey Residential Complex - Structural Handover</td><td class="opacity-70">A and P Civils and Trading</td></tr>
+                            <tr class="project-row glass-card"><td>Full Drafting & Building of 3 Independent Two-Bedroom Housing Units</td><td class="opacity-70">Takalani Mangenge</td></tr>
+                            <tr class="project-row glass-card"><td>Civil Services Infrastructure Deployment & Municipal Road Base Prep</td><td class="opacity-70">George Municipality</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Client Testimonials -->
+    <section id="references" class="py-16 sm:py-32 relative reveal bg-brand-900/5 dark:bg-night">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+            <h3 class="text-3xl sm:text-5xl font-black uppercase tracking-tighter mb-10 sm:mb-16 leading-none">Testimonials</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <div class="glass-card p-6 sm:p-8 rounded-2xl sm:rounded-3xl text-center">
+                    <p class="text-[9px] sm:text-[10px] font-black uppercase text-brand-500 dark:text-white mb-2 italic">"Faultless execution on our residential development project."</p>
+                    <p class="text-sm sm:text-base font-bold leading-none">Mr. Aluwani P.</p>
+                    <p class="text-[10px] sm:text-[9px] font-black uppercase tracking-widest mt-1 opacity-50">A and P Civils</p>
+                </div>
+                <div class="glass-card p-6 sm:p-8 rounded-2xl sm:rounded-3xl text-center">
+                    <p class="text-[9px] sm:text-[10px] font-black uppercase text-brand-500 dark:text-white mb-2 italic">"Unmatched expertise in bulk earthworks and road surfacing."</p>
+                    <p class="text-sm sm:text-base font-bold leading-none">Mr. Tebza</p>
+                    <p class="text-[10px] sm:text-[9px] font-black uppercase tracking-widest mt-1 opacity-50">TDM Construction</p>
+                </div>
+                <div class="glass-card p-6 sm:p-8 rounded-2xl sm:rounded-3xl text-center md:col-span-2 lg:col-span-1">
+                    <p class="text-[9px] sm:text-[10px] font-black uppercase text-brand-500 dark:text-white mb-2 italic">"The drafting and municipal approval process was seamless."</p>
+                    <p class="text-sm sm:text-base font-bold leading-none">Admin Team</p>
+                    <p class="text-[10px] sm:text-[9px] font-black uppercase tracking-widest mt-1 opacity-50">Legal Compliance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 sm:py-32 relative reveal dark:bg-night">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-20 items-center">
+            <div class="space-y-8 sm:space-y-12 text-center lg:text-left">
+                <h3 class="text-5xl sm:text-7xl lg:text-9xl font-black tracking-tighter uppercase leading-[0.9]">Start Your <br /><span class="text-brand-500 dark:text-white text-shimmer animate-text-glow text-3xl sm:text-7xl lg:text-8xl">Project Journey</span> <br />With Encori.</h3>
+                <div class="space-y-6 sm:space-y-8">
+                    <div class="flex items-center space-x-4 sm:space-x-7 group cursor-pointer justify-center lg:justify-start" onclick="location.href='tel:0723179464'">
+                        <div class="w-12 h-12 sm:w-16 sm:h-16 glass-card rounded-xl sm:rounded-2xl flex items-center justify-center text-brand-500 dark:text-white group-hover:bg-brand-900 dark:group-hover:bg-white dark:group-hover:text-night transition-all shadow-xl"><i data-lucide="phone" class="w-5 h-5 sm:w-6 sm:h-6"></i></div>
+                        <div class="text-left"><p class="text-[8px] sm:text-[10px] font-black uppercase mb-0.5 opacity-60">Consultation Hotline</p><p class="text-lg sm:text-2xl font-black leading-none">072 317 9464</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="glass-card p-8 sm:p-16 rounded-2xl sm:rounded-[3.5rem] shadow-2xl">
+                <form action="https://formspree.io/f/xbdadona" method="POST" class="space-y-5 sm:space-y-7" id="contactForm">
+                    <h4 class="text-2xl sm:text-3xl font-black mb-2 uppercase tracking-tighter text-center sm:text-left">Project Submission</h4>
+                    <p class="text-[10px] sm:text-[11px] opacity-60 text-center sm:text-left mb-4 uppercase tracking-widest font-bold">Request a quote or technical site assessment</p>
+                    <input type="text" name="name" placeholder="Full Name / Company" class="w-full glass-card bg-transparent rounded-xl sm:rounded-2xl p-4 sm:p-6 text-sm outline-none focus:ring-2 focus:ring-brand-500 dark:focus:ring-white placeholder-brand-900/40 dark:placeholder-white/20" required />
+                    <input type="tel" name="phone" placeholder="Contact Phone Number" class="w-full glass-card bg-transparent rounded-xl sm:rounded-2xl p-4 sm:p-6 text-sm outline-none focus:ring-2 focus:ring-brand-500 dark:focus:ring-white placeholder-brand-900/40 dark:placeholder-white/20" required />
+                    <textarea name="message" placeholder="Provide details on project location and scope..." class="w-full glass-card bg-transparent rounded-xl sm:rounded-2xl p-4 sm:p-6 text-sm outline-none focus:ring-2 focus:ring-brand-500 dark:focus:ring-white h-32 sm:h-40 placeholder-brand-900/40 dark:placeholder-white/20"></textarea>
+                    <button type="submit" class="w-full bg-brand-900 dark:bg-white dark:text-night text-white font-black py-5 sm:py-7 rounded-xl sm:rounded-3xl shadow-2xl hover:brightness-110 transition-all uppercase tracking-[0.3em] text-[10px] sm:text-[11px]">Submit RFQ</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 sm:py-24 bg-brand-900 dark:bg-black border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+            <div class="flex flex-col items-center gap-4 sm:gap-6 mb-8 sm:mb-10">
+                <div class="w-20 h-20 bg-white dark:bg-night rounded-2xl flex items-center justify-center text-brand-900 dark:text-white font-black shadow-lg text-2xl">ET</div>
+                <h4 class="text-xl sm:text-2xl font-black tracking-tighter uppercase text-white leading-none">ENCORI TRADING</h4>
+            </div>
+            <p class="text-[9px] sm:text-[11px] text-white font-bold tracking-widest opacity-50 uppercase mb-4 sm:mb-5 max-w-xs sm:max-w-none mx-auto">Civil Works • Building Solutions • Plant Hire • CIDB Registered</p>
+            <p class="text-[9px] sm:text-[11px] text-white font-medium opacity-30 tracking-[0.2em]">TRANSFORMING GAUTENG INFRASTRUCTURE SINCE 2020</p>
+            <p class="text-[9px] sm:text-[11px] text-white font-medium opacity-20 mt-4">© 2024 ENCORI TRADING AND PROJECTS. PRETORIA, ZA. 🇿🇦</p>
+        </div>
+    </footer>
+
+    <!-- Original WhatsApp Button -->
+    <a href="https://wa.me/27723179464" target="_blank" class="fixed bottom-4 right-4 sm:bottom-10 sm:right-10 z-[100] w-14 h-14 sm:w-20 sm:h-20 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all whatsapp-pulse" id="floating-wa">
+        <svg viewBox="0 0 24 24" class="w-8 h-8 sm:w-12 sm:h-12" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.937 3.659 1.43 5.623 1.43h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+    </a>
+
+    <script>
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const data = new FormData(form);
+            const button = form.querySelector('button');
+            const originalText = button.innerText;
+            button.innerText = "PROCESSING...";
+            button.disabled = true;
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (response.ok) {
+                    button.innerText = "INQUIRY SENT";
+                    button.classList.add('bg-green-600');
+                    form.reset();
+                    setTimeout(() => {
+                        button.innerText = originalText;
+                        button.classList.remove('bg-green-600');
+                        button.disabled = false;
+                    }, 5000);
+                } else { throw new Error('Fail'); }
+            } catch (error) {
+                button.innerText = "ERROR - RETRY";
+                button.classList.add('bg-red-600');
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.classList.remove('bg-red-600');
+                    button.disabled = false;
+                }, 3000);
+            }
+        }
+
+        lucide.createIcons();
+        const hidePreloader = () => {
+            const pre = document.getElementById('preloader');
+            if (pre) pre.classList.add('loaded');
+        };
+        window.onload = () => setTimeout(hidePreloader, 400);
+        setTimeout(hidePreloader, 4000);
+
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) contactForm.addEventListener('submit', handleFormSubmit);
+
+        const themeBtn = document.getElementById('theme-toggle');
+        const themeBtnMob = document.getElementById('theme-toggle-mobile');
+        const toggleTheme = () => {
+            document.documentElement.classList.toggle('dark');
+            lucide.createIcons();
+        };
+        if (themeBtn) themeBtn.onclick = toggleTheme;
+        if (themeBtnMob) themeBtnMob.onclick = toggleTheme;
+
+        const menuBtn = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (menuBtn && mobileMenu) {
+            menuBtn.onclick = (e) => {
+                e.stopPropagation();
+                mobileMenu.classList.toggle('hidden');
+            };
+            document.querySelectorAll('.mobile-link').forEach(l => {
+                l.onclick = () => mobileMenu.classList.add('hidden');
+            });
+            document.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.03 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
